@@ -121,11 +121,11 @@ class ComplianceReport(BaseModel):
 
 class PhysicsSolutionBundle(BaseModel):
     """Complete deterministic output bundle produced by Module D (AeroSandbox + SymPy + Pint)."""
-    altitude_meters: float
-    air_density_kg_m3: float
-    static_pressure_pascals: float
-    temperature_kelvin: float
-    speed_of_sound_m_s: float
+    altitude_meters: float = 0.0
+    air_density_kg_m3: float = 1.225
+    static_pressure_pascals: float = 101325.0
+    temperature_kelvin: float = 288.15
+    speed_of_sound_m_s: float = 340.294
     dynamic_pressure_pascals: Optional[float] = None
     aspect_ratio: Optional[float] = None
     wing_loading_n_m2: Optional[float] = None

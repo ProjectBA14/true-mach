@@ -52,6 +52,34 @@ def extract_parameters_local_deterministic(user_text: str) -> ExtractedTurnParam
     # 2. Intent classification
     intent: Optional[CalculationIntentType] = None
 
+    # Check for explanatory/lookup/conceptual/formula phrasing BEFORE calculation intents
+    # (formula, equation, difference between, what is, whats the, advice on, explain, how does, why does, max, limit, threshold, does that pass, isa density)
+    is_formula_or_conceptual = bool(
+        re.search(
+            r"\b(advice\s+on|whats?\s+(?:the\s+)?formula|what\s+is\s+(?:the\s+)?formula|formula\s+(?:normally|noramlly|typically|usually)?\s*(?:used)?|formulas?|equations?|difference\s+between|explain\b|how\s+does\b|why\s+does\b|max(?:imum)?\s+(?:allowable\s+|permitted\s+)?(?:limit|speed|drag|weight|load)|limits?\b|thresholds?\b)\b",
+            text_lower,
+        )
+        or re.search(r"\b(?:what\s+are|what\s+is|whats|what\'s)\s+(?:the\s+)?(?:\w+\s+)?(?:standards?|regulations?|requirements?|rules?|criteria|formula|equation)\b", text_lower)
+        or re.search(r"\b(?:does\s+(?:that|this)?\s*pass|is\s+(?:that|this)?\s*compliant|is\s+(?:it|this)?\s*part\s*23|is\s+(?:it|this)?\s*part\s*25|part\s*23\s*or\s*part\s*25)\b", text_lower)
+        or re.search(r"\b(?:isa\s+(?:air\s+)?density|speed\s+of\s+sound|atmospheric\s+properties|isa\s+properties)\b", text_lower)
+    )
+
+    # Sizing / Target parameter queries (e.g., "what should the wingspan be?", "what would be the most applicable wingspan?", "size the wing")
+    is_wing_sizing_query = bool(
+        re.search(
+            r"(?:what|how\s+much|which)\s+(?:should|would\s+be|is)\s+(?:the\s+)?(?:most\s+applicable\s+|optimal\s+|recommended\s+|required\s+|suitable\s+|appropriate\s+)?(?:wing\s*span|wingspan)",
+            text_lower,
+        )
+        or re.search(r"\b(?:size\s+(?:the\s+)?wing|wing\s+sizing|size\s+wingspan|wingspan\s+sizing)\b", text_lower)
+        or re.search(r"\b(?:recommend|determine|find|calculate|suggest)\s+(?:a|the)?\s*(?:applicable|optimal|compliant|required|suitable)?\s*(?:wing\s*span|wingspan)\b", text_lower)
+        or re.search(r"(?:most\s+applicable|optimal|recommended|required|suitable)\s+(?:wing\s*span|wingspan)", text_lower)
+    )
+
+    if is_wing_sizing_query:
+        intent = "wing_sizing"
+    elif is_formula_or_conceptual:
+        intent = "regulatory_qa"
+
     # Regulatory and conceptual patterns (singular and plural)
     regulatory_patterns = [
         r"\bstandards?\b",
@@ -92,28 +120,14 @@ def extract_parameters_local_deterministic(user_text: str) -> ExtractedTurnParam
     ]
 
     has_numerical_input = bool(
-        re.search(r"\d+(?:\.\d+)?\s*(?:m\b|meter|meters|ft\b|feet|kg\b|kgs|lbs?\b|pound|pounds|knots?\b|kts?\b|m/s\b|mps\b|sq\s*ft|sqft|m\^?2|deg|degrees|%|mach)", text_lower)
-        or re.search(r"\b(?:wingspan|wing\s*area|gross\s*mass|gross\s*weight|mass|weight|speed|airspeed|altitude)\s*(?:of|is|:)?\s*\d+", text_lower)
+        re.search(r"(-?\d+(?:\.\d+)?)\s*(?:m\b|meter|meters|ft\b|feet|kg\b|kgs|lbs?\b|pound|pounds|knots?\b|kts?\b|m/s\b|mps\b|sq\s*ft|sqft|m\^?2|deg|degrees|%|mach)", text_lower)
+        or re.search(r"\b(?:wingspan|wing\s*area|gross\s*mass|gross\s*weight|mass|weight|speed|airspeed|altitude)\s*(?:of|is|:)?\s*-?\d+", text_lower)
     )
 
     has_design_calculation_request = bool(
         re.search(r"\b(calculate|compute|solve|sizing|evaluate|sweep)\b", text_lower)
         and not re.search(r"\b(how to calculate|how do you compute|how is.*calculated)\b", text_lower)
     )
-
-    # Sizing / Target parameter queries (e.g., "what should the wingspan be?", "what would be the most applicable wingspan?", "size the wing")
-    is_wing_sizing_query = bool(
-        re.search(
-            r"(?:what|how\s+much|which)\s+(?:should|would\s+be|is)\s+(?:the\s+)?(?:most\s+applicable\s+|optimal\s+|recommended\s+|required\s+|suitable\s+|appropriate\s+)?(?:wing\s*span|wingspan)",
-            text_lower,
-        )
-        or re.search(r"\b(?:size\s+(?:the\s+)?wing|wing\s+sizing|size\s+wingspan|wingspan\s+sizing)\b", text_lower)
-        or re.search(r"\b(?:recommend|determine|find|calculate|suggest)\s+(?:a|the)?\s*(?:applicable|optimal|compliant|required|suitable)?\s*(?:wing\s*span|wingspan)\b", text_lower)
-        or re.search(r"(?:most\s+applicable|optimal|recommended|required|suitable)\s+(?:wing\s*span|wingspan)", text_lower)
-    )
-
-    if is_wing_sizing_query:
-        intent = "wing_sizing"
 
     # Strip atmospheric default phrases so "standard ISA" / "standard atmospheric conditions" does not trigger regulatory QA
     clean_reg_text = re.sub(
@@ -171,54 +185,54 @@ def extract_parameters_local_deterministic(user_text: str) -> ExtractedTurnParam
     # 4. Wingspan
     span: Optional[DimensionalQuantityInput] = None
     if not is_wing_sizing_query:
-        span_match = re.search(r"(\d+(?:\.\d+)?)\s*(m|meter|meters|ft|feet)\s*wingspan", text_lower)
+        span_match = re.search(r"(-?\d+(?:\.\d+)?)\s*(m|meter|meters|ft|feet)\s*wingspan", text_lower)
         if not span_match:
-            span_match = re.search(r"wingspan(?:\s*(?:of|is|:))?\s*(\d+(?:\.\d+)?)\s*(m|meters|meter|ft|feet)", text_lower)
+            span_match = re.search(r"wingspan(?:\s*(?:of|is|to|:|set\s*to|=))?\s*(-?\d+(?:\.\d+)?)\s*(m|meters|meter|ft|feet)", text_lower)
         if not span_match:
-            span_match = re.search(r"(?:span|b)(?:\s*(?:of|is|:))?\s*(\d+(?:\.\d+)?)\s*(m|meters|meter|ft|feet)\b", text_lower)
+            span_match = re.search(r"(?:span|b)(?:\s*(?:of|is|to|:|set\s*to|=))?\s*(-?\d+(?:\.\d+)?)\s*(m|meters|meter|ft|feet)\b", text_lower)
+        if not span_match:
+            span_match = re.search(r"(-?\d+(?:\.\d+)?)\s*(m|meter|meters|ft|feet)\s*(?:wing\s*)?span\b", text_lower)
         if span_match:
             val = float(span_match.group(1))
-            if val > 0:
-                span = DimensionalQuantityInput(
-                    numerical_value=val,
-                    unit_string=span_match.group(2).strip(),
-                )
+            span = DimensionalQuantityInput(
+                numerical_value=val,
+                unit_string=span_match.group(2).strip(),
+            )
 
     # 5. Wing Area
     area: Optional[DimensionalQuantityInput] = None
-    area_match = re.search(r"(\d+(?:\.\d+)?)\s*(m\^2|m2|sqm|sq\s*ft|sqft|ft\^2|ft2)\s*wing\s*area", text_lower)
+    area_match = re.search(r"(-?\d+(?:\.\d+)?)\s*(m\^2|m2|sqm|sq\s*ft|sqft|ft\^2|ft2)\s*wing\s*area", text_lower)
     if not area_match:
-        area_match = re.search(r"wing\s*area(?:\s*(?:of|is|:))?\s*(\d+(?:\.\d+)?)\s*(m\^2|m2|sqm|sq\s*ft|sqft|ft\^2|ft2)", text_lower)
+        area_match = re.search(r"wing\s*area(?:\s*(?:of|is|to|:|set\s*to|=))?\s*(-?\d+(?:\.\d+)?)\s*(m\^2|m2|sqm|sq\s*ft|sqft|ft\^2|ft2)", text_lower)
     if not area_match:
-        area_match = re.search(r"(?:planform\s*area|wing\s*surface|s)(?:\s*(?:of|is|:))?\s*(\d+(?:\.\d+)?)\s*(m\^2|m2|sqm|sq\s*ft|sqft|ft\^2|ft2)", text_lower)
+        area_match = re.search(r"(?:planform\s*area|wing\s*surface|s)(?:\s*(?:of|is|to|:|set\s*to|=))?\s*(-?\d+(?:\.\d+)?)\s*(m\^2|m2|sqm|sq\s*ft|sqft|ft\^2|ft2)", text_lower)
     if not area_match:
-        area_match = re.search(r"(\d+(?:\.\d+)?)\s*(m\^2|m2|sqm|sq\s*ft|sqft|ft\^2|ft2)\s*(?:wing|planform)", text_lower)
+        area_match = re.search(r"(-?\d+(?:\.\d+)?)\s*(m\^2|m2|sqm|sq\s*ft|sqft|ft\^2|ft2)\s*(?:wing|planform)", text_lower)
     if area_match:
         val = float(area_match.group(1))
-        if val > 0:
-            area = DimensionalQuantityInput(
-                numerical_value=val,
-                unit_string=area_match.group(2).strip(),
-            )
+        area = DimensionalQuantityInput(
+            numerical_value=val,
+            unit_string=area_match.group(2).strip(),
+        )
 
     # 6. Aircraft Mass / Gross Weight
     mass: Optional[DimensionalQuantityInput] = None
     mass_match = re.search(
-        r"(\d+(?:\.\d+)?)\s*(kg|kgs|lbs|lb|lbf|newtons|n)\s*(?:gross\s*mass|gross\s*weight|weight|mass|mtow)",
+        r"(-?\d+(?:\.\d+)?)\s*(kg|kgs|lbs|lb|lbf|newtons|n)\s*(?:gross\s*mass|gross\s*weight|weight|mass|mtow)",
         text_lower,
     )
     if not mass_match:
         mass_match = re.search(
-            r"(?:gross\s*mass|gross\s*weight|mass|weight|mtow)(?:\s*(?:of|is|:))?\s*(\d+(?:\.\d+)?)\s*(kg|kgs|lbs|lb|lbf|newtons|n)",
+            r"(?:gross\s*mass|gross\s*weight|mass|weight|mtow)(?:\s*(?:of|is|to|:|set\s*to|=))?\s*(-?\d+(?:\.\d+)?)\s*(kg|kgs|lbs|lb|lbf|newtons|n)",
             text_lower,
         )
     if not mass_match:
         mass_match = re.search(
-            r"(\d+(?:\.\d+)?)\s*(kg|kgs|lbs|lb|lbf|newtons|n)\s*(?:aircraft|plane|airplane|commuter|transport)",
+            r"(-?\d+(?:\.\d+)?)\s*(kg|kgs|lbs|lb|lbf|newtons|n)\s*(?:aircraft|plane|airplane|commuter|transport)",
             text_lower,
         )
     if not mass_match:
-        for candidate in re.finditer(r"\b(\d+(?:\.\d+)?)\s*(kg|kgs|lbs|lb|lbf)\b", text_lower):
+        for candidate in re.finditer(r"\b(-?\d+(?:\.\d+)?)\s*(kg|kgs|lbs|lb|lbf)\b", text_lower):
             start_pos = candidate.start()
             prefix = text_lower[max(0, start_pos - 15):start_pos]
             if "fuel" not in prefix and "payload" not in prefix:
@@ -226,52 +240,49 @@ def extract_parameters_local_deterministic(user_text: str) -> ExtractedTurnParam
                 break
     if mass_match:
         val = float(mass_match.group(1))
-        if val > 0:
-            mass = DimensionalQuantityInput(
-                numerical_value=val,
-                unit_string=mass_match.group(2).strip(),
-            )
+        mass = DimensionalQuantityInput(
+            numerical_value=val,
+            unit_string=mass_match.group(2).strip(),
+        )
 
     # 7. True Airspeed / Cruise Speed / Mach Number
     speed: Optional[DimensionalQuantityInput] = None
     speed_match = re.search(
-        r"(?:cruise\s*airspeed|cruise\s*speed|airspeed|true\s*airspeed|speed|flying\s*at)(?:\s*(?:of|is|:))?\s*(\d+(?:\.\d+)?)\s*(knots|kts|kt|m/s|mps)",
+        r"(?:cruise\s*airspeed|cruise\s*speed|airspeed|true\s*airspeed|speed|flying\s*at)(?:\s*(?:of|is|to|:|set\s*to|=))?\s*(-?\d+(?:\.\d+)?)\s*(knots|kts|kt|m/s|mps)",
         text_lower,
     )
     if not speed_match:
         speed_match = re.search(
-            r"(\d+(?:\.\d+)?)\s*(knots|kts|kt|m/s|mps)\s*(?:cruise\s*airspeed|cruise\s*speed|airspeed|speed)",
+            r"(-?\d+(?:\.\d+)?)\s*(knots|kts|kt|m/s|mps)\s*(?:cruise\s*airspeed|cruise\s*speed|true\s*airspeed|airspeed|speed)",
             text_lower,
         )
     if not speed_match:
         # Match Mach number e.g. "mach 0.78", "m = 0.82", "0.80 mach"
-        mach_match = re.search(r"(?:mach|m\s*=)\s*(0\.\d+|\d+(?:\.\d+)?)", text_lower)
+        mach_match = re.search(r"(?:mach|m\s*=)\s*(-?0\.\d+|-?\d+(?:\.\d+)?)", text_lower)
         if not mach_match:
-            mach_match = re.search(r"(0\.\d+)\s*mach", text_lower)
+            mach_match = re.search(r"(-?0\.\d+)\s*mach", text_lower)
         if mach_match:
             val = float(mach_match.group(1))
-            if val > 0:
-                speed = DimensionalQuantityInput(
-                    numerical_value=val,
-                    unit_string="mach",
-                )
-    if speed_match and speed is None:
-        val = float(speed_match.group(1))
-        if val > 0:
             speed = DimensionalQuantityInput(
                 numerical_value=val,
-                unit_string=speed_match.group(2).strip(),
+                unit_string="mach",
             )
+    if speed_match and speed is None:
+        val = float(speed_match.group(1))
+        speed = DimensionalQuantityInput(
+            numerical_value=val,
+            unit_string=speed_match.group(2).strip(),
+        )
 
     # 8. Altitude
     alt: Optional[DimensionalQuantityInput] = None
-    alt_match = re.search(r"(?:altitude|alt|at|cruising\s*at|flying\s*at|flight\s*level|fl)(?:\s*(?:of|is|:))?\s*(\d+(?:\.\d+)?)\s*(m|meter|meters|ft|feet)\b", text_lower)
+    alt_match = re.search(r"(?:altitude|alt|at|cruising\s*at|flying\s*at|flight\s*level|fl)(?:\s*(?:of|is|to|:|set\s*to|=))?\s*(-?\d+(?:\.\d+)?)\s*(m|meter|meters|ft|feet)\b", text_lower)
     if not alt_match:
-        alt_match = re.search(r"(\d+(?:\.\d+)?)\s*(m|meter|meters|ft|feet)\s*altitude\b", text_lower)
+        alt_match = re.search(r"(-?\d+(?:\.\d+)?)\s*(m|meter|meters|ft|feet)\s*altitude\b", text_lower)
     if not alt_match:
-        alt_match = re.search(r"sea\s*level\s*\((\d+)\s*(m|meter|meters|ft|feet)\)", text_lower)
+        alt_match = re.search(r"sea\s*level\s*\((-?\d+)\s*(m|meter|meters|ft|feet)\)", text_lower)
     if not alt_match:
-        alt_match = re.search(r"(?<!sq\s)(?<!sq)(?<!span\s)(?<!wingspan\s)\b(\d{3,5}(?:\.\d+)?)\s*(ft|feet)\b", text_lower)
+        alt_match = re.search(r"(?<!sq\s)(?<!sq)(?<!span\s)(?<!wingspan\s)\b(-?\d{3,5}(?:\.\d+)?)\s*(ft|feet)\b", text_lower)
     if alt_match:
         val = float(alt_match.group(1))
         alt = DimensionalQuantityInput(
@@ -294,6 +305,10 @@ def extract_parameters_local_deterministic(user_text: str) -> ExtractedTurnParam
         ]
     ):
         alt = DimensionalQuantityInput(numerical_value=0.0, unit_string="m")
+
+    # If speed and altitude provided without aircraft geometry, default calculation intent to transonic_audit
+    if intent is None and speed is not None and alt is not None and span is None and area is None:
+        intent = "transonic_audit"
 
     # 9. CLmax
     clmax: Optional[float] = None
@@ -455,15 +470,15 @@ def merge_turn_parameters(state: AircraftDesignState, turn_params: ExtractedTurn
     if turn_params.calculation_intent is not None:
         state.calculation_intent = turn_params.calculation_intent
 
-    if turn_params.wingspan is not None and turn_params.wingspan.numerical_value > 0.0:
+    if turn_params.wingspan is not None:
         state.wingspan = turn_params.wingspan
-    if turn_params.wing_area is not None and turn_params.wing_area.numerical_value > 0.0:
+    if turn_params.wing_area is not None:
         state.wing_area = turn_params.wing_area
-    if turn_params.aircraft_mass is not None and turn_params.aircraft_mass.numerical_value > 0.0:
+    if turn_params.aircraft_mass is not None:
         state.aircraft_mass = turn_params.aircraft_mass
     if turn_params.passenger_count is not None:
         state.passenger_count = turn_params.passenger_count
-    if turn_params.true_airspeed is not None and turn_params.true_airspeed.numerical_value > 0.0:
+    if turn_params.true_airspeed is not None:
         state.true_airspeed = turn_params.true_airspeed
     if turn_params.altitude is not None:
         state.altitude = turn_params.altitude
@@ -505,6 +520,25 @@ def merge_turn_parameters(state: AircraftDesignState, turn_params: ExtractedTurn
         if state.oswald_efficiency_factor is None or state.oswald_efficiency_factor == 0.80:
             state.oswald_efficiency_factor = 0.80
 
+    # Overwrite / refresh unit_conversions for any updated parameter
+    conv_map = {rec.parameter_name: rec for rec in state.unit_conversions}
+    for field_name, target_unit in [
+        ("wingspan", "meter"),
+        ("wing_area", "meter ** 2"),
+        ("aircraft_mass", "kilogram"),
+        ("true_airspeed", "meter / second"),
+        ("altitude", "meter"),
+    ]:
+        val = getattr(turn_params, field_name, None)
+        if val is not None and val.numerical_value > 0:
+            from src.physics_engine.aero_solver import convert_quantity_to_si
+            try:
+                _, rec = convert_quantity_to_si(field_name, val, target_unit)
+                conv_map[field_name] = rec
+            except Exception:
+                pass
+    state.unit_conversions = list(conv_map.values())
+
     return state
 
 
@@ -519,6 +553,13 @@ def inspect_boundary_conditions(state: AircraftDesignState) -> Tuple[bool, List[
         state.pipeline_status = "READY_FOR_PHYSICS"
         state.missing_parameters = []
         return True, []
+
+    # Domain validation for negative physical values
+    for field_name in ["wingspan", "wing_area", "aircraft_mass", "true_airspeed"]:
+        val = getattr(state, field_name, None)
+        if val is not None and isinstance(val, DimensionalQuantityInput) and val.numerical_value <= 0.0:
+            state.pipeline_status = "DOMAIN_ERROR"
+            return False, [f"domain_error_{field_name}"]
 
     config = load_schema_config()
     intent_map = config.get("intent_mandatory_parameters", {

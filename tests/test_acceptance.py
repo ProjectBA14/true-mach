@@ -408,3 +408,123 @@ def test_low_speed_part23_no_part25_mach_citation():
         assert "14 CFR § 25.253" not in check.regulation_reference
         assert "14 CFR Part 25" not in check.source_document
 
+
+def test_advice_formula_normally_used():
+    """Regression Test 1: Conceptual / formula query routes to regulatory_qa without demanding inputs."""
+    prompt = "A bit of advice on aerodynamic analysis whats the formula normally used?"
+    state = AircraftDesignState(session_id="advice-formula")
+    result = process_user_turn(prompt, state, prefer_local_extractor=True)
+
+    assert result.state.calculation_intent == "regulatory_qa"
+    assert result.state.missing_parameters == []
+    assert result.is_halted is False
+    assert "C_{Di}" in result.assistant_chat_markdown or "Induced Drag" in result.assistant_chat_markdown
+    assert "V_{s0}" in result.assistant_chat_markdown or "Stall Speed" in result.assistant_chat_markdown
+
+
+def test_single_metric_vs0_part23_cross_verification():
+    """Regression Test 2: Single-metric verification evaluates Vs0 = 64 kts vs Part 23 <= 61 kts -> FAIL."""
+    prompt = "I got Vs0 = 64 kts for a 6-seater—does that pass Part 23?"
+    state = AircraftDesignState(session_id="single-metric-vs0")
+    result = process_user_turn(prompt, state, prefer_local_extractor=True)
+
+    assert result.is_halted is False
+    assert result.compliance_report is not None
+    assert result.compliance_report.overall_status == "FAIL"
+    assert result.compliance_report.regulatory_category == "FAA_14_CFR_PART_23"
+    assert result.state.missing_parameters == []
+    assert len(result.compliance_report.rule_checks) >= 1
+    assert result.compliance_report.rule_checks[0].computed_value == 64.0
+    assert result.compliance_report.rule_checks[0].status == "FAIL"
+    assert "61" in result.assistant_chat_markdown
+    assert "23.2110" in result.assistant_chat_markdown or "23.49" in result.assistant_chat_markdown
+
+
+def test_category_check_19500_lbs_18_pax():
+    """Regression Test 3: Weight > 19,000 lbs classifies as Part 25 despite 18 passengers."""
+    prompt = "Is 19,500 lbs with 18 passengers Part 23 or Part 25?"
+    state = AircraftDesignState(session_id="category-check-19500")
+    result = process_user_turn(prompt, state, prefer_local_extractor=True)
+
+    assert result.is_halted is False
+    assert result.state.regulatory_category == "FAA_14_CFR_PART_25"
+    assert result.state.missing_parameters == []
+    assert "Part 25" in result.assistant_chat_markdown
+    assert "19,000" in result.assistant_chat_markdown
+
+
+def test_isa_atmospheric_lookup_35000_ft():
+    """Regression Test 4: ISA atmospheric lookup at 35,000 ft computes density and speed of sound."""
+    prompt = "What is the ISA air density and speed of sound at 35,000 ft?"
+    state = AircraftDesignState(session_id="isa-lookup-35000")
+    result = process_user_turn(prompt, state, prefer_local_extractor=True)
+
+    assert result.is_halted is False
+    assert result.solution is not None
+    assert result.solution.air_density_kg_m3 == pytest.approx(0.38, abs=0.02)
+    assert result.solution.speed_of_sound_m_s == pytest.approx(297.86, abs=5.0)
+    assert result.state.missing_parameters == []
+    assert "Air Density" in result.assistant_chat_markdown
+    assert "Speed of Sound" in result.assistant_chat_markdown
+
+
+def test_airspeed_overwrite_not_reusing_prior():
+    """Regression Test 5: Standalone airspeed inquiry does not reuse prior turn's airspeed."""
+    state = AircraftDesignState(session_id="speed-overwrite-session")
+
+    # Turn 1: Cessna flight condition (62 m/s)
+    t1_prompt = (
+        "Run a full aerodynamic and stall speed audit for a 4-passenger aircraft at sea level (0 m): "
+        "wingspan 11.0 m, wing area 16.2 m^2, gross mass 1050 kg, cruise speed 62 m/s, and landing CLmax of 1.65."
+    )
+    r1 = process_user_turn(t1_prompt, state, prefer_local_extractor=True)
+    assert r1.is_halted is False
+    assert r1.state.true_airspeed.numerical_value == 62.0
+
+    # Turn 2: Standalone high-speed inquiry
+    t2_prompt = "380 knots true airspeed at 25,000 ft"
+    r2 = process_user_turn(t2_prompt, r1.state, prefer_local_extractor=True)
+
+    assert r2.is_halted is False
+    assert r2.state.true_airspeed.numerical_value == 380.0
+    assert r2.solution is not None
+    # 380 kts at 25,000 ft is M ~ 0.63 (if 62 m/s were reused, M would be ~ 0.20)
+    assert r2.solution.mach_number == pytest.approx(0.63, abs=0.02)
+
+
+def test_negative_wingspan_domain_error():
+    """Regression Test 6: Negative input values trigger DOMAIN_ERROR halt."""
+    prompt = "Calculate induced drag for an aircraft with -12 m wingspan, 16 m^2 wing area, 1200 kg gross mass, 60 m/s cruise speed at 0 m altitude."
+    state = AircraftDesignState(session_id="domain-error-negative-wingspan")
+    result = process_user_turn(prompt, state, prefer_local_extractor=True)
+
+    assert result.is_halted is True
+    assert result.state.pipeline_status == "DOMAIN_ERROR"
+    assert "Domain Error" in result.assistant_chat_markdown or "strictly positive" in result.assistant_chat_markdown
+
+
+def test_multiturn_increase_wing_area():
+    """Regression Test 7: Multi-turn 'increase the wing area to 18.5 m^2' updates parameter and recalculates."""
+    state = AircraftDesignState(session_id="multiturn-area-increase")
+
+    # Turn 1: Cessna
+    t1_prompt = (
+        "Run a full aerodynamic and stall speed audit for a 4-passenger aircraft at sea level (0 m): "
+        "wingspan 11.0 m, wing area 16.2 m^2, gross mass 1050 kg, cruise speed 62 m/s, and landing CLmax of 1.65."
+    )
+    r1 = process_user_turn(t1_prompt, state, prefer_local_extractor=True)
+    assert r1.is_halted is False
+    assert r1.solution.stall_speed_vs0_knots == pytest.approx(48.75, abs=0.5)
+
+    # Turn 2: Increase wing area to 18.5 m^2
+    t2_prompt = "increase the wing area to 18.5 m^2"
+    r2 = process_user_turn(t2_prompt, r1.state, prefer_local_extractor=True)
+
+    assert r2.is_halted is False
+    assert r2.state.wing_area.numerical_value == 18.5
+    assert r2.state.wingspan.numerical_value == 11.0
+    assert r2.state.aircraft_mass.numerical_value == 1050.0
+    # Recalculated Vs0 drops from 48.75 kts to ~ 45.62 kts
+    assert r2.solution.stall_speed_vs0_knots == pytest.approx(45.6, abs=0.5)
+
+
