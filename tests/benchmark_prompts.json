@@ -1,0 +1,97 @@
+{
+  "test_suite_name": "AeroGuard-RAG IEEE 830 Acceptance Suite",
+  "tests": [
+    {
+      "test_id": "TC-01",
+      "description": "Incomplete query triggering active counter-questioning gatekeeper halt",
+      "turns": [
+        "Calculate the induced drag for my 4-seat prototype aircraft with a 10.5 m wingspan."
+      ],
+      "expected": {
+        "pipeline_status": "HALTED_MISSING_PARAMS",
+        "calculation_intent": "induced_drag",
+        "missing_parameters": ["wing_area", "aircraft_mass", "true_airspeed", "altitude"],
+        "solver_invoked": false
+      }
+    },
+    {
+      "test_id": "TC-02",
+      "description": "Multi-turn state retention merging Turn 1 and Turn 2 parameters",
+      "turns": [
+        "Calculate the induced drag for my 4-seat prototype aircraft with a 10.5 m wingspan.",
+        "Wing area is 15.0 m^2, gross mass is 1100 kg, cruise airspeed is 60 m/s, and assume standard ISA sea-level conditions."
+      ],
+      "expected": {
+        "pipeline_status": "COMPLETED_VERIFIED",
+        "regulatory_category": "FAA_14_CFR_PART_23",
+        "aspect_ratio": 7.35,
+        "lift_coefficient_cl": 0.32615,
+        "induced_drag_coefficient_cdi": 0.00576,
+        "induced_drag_force_newtons": 190.47,
+        "compliance_status": "PASS",
+        "design_advisory_present": false
+      }
+    },
+    {
+      "test_id": "TC-03",
+      "description": "FAA Part 23 compliance PASS with silent design advisor",
+      "turns": [
+        "Run a full aerodynamic and stall speed audit for a 4-passenger aircraft at sea level (0 m): wingspan 11.0 m, wing area 16.2 m^2, gross mass 1050 kg, cruise speed 62 m/s, and landing CLmax of 1.65."
+      ],
+      "expected": {
+        "pipeline_status": "COMPLETED_VERIFIED",
+        "regulatory_category": "FAA_14_CFR_PART_23",
+        "stall_speed_vs0_knots": 48.765,
+        "compliance_status": "PASS",
+        "design_advisory_present": false
+      }
+    },
+    {
+      "test_id": "TC-04",
+      "description": "FAA Part 23 stall speed FAIL (> 61 knots) triggering deterministic AeroSandbox parameter sweep",
+      "turns": [
+        "Evaluate stall speed and induced drag compliance for a 6-passenger commuter aircraft at sea level (0 m) with wingspan 8.4 m, wing area 10.5 m^2, gross mass 1850 kg, cruise speed 52 m/s, and landing CLmax 1.35."
+      ],
+      "expected": {
+        "pipeline_status": "COMPLETED_VERIFIED",
+        "regulatory_category": "FAA_14_CFR_PART_23",
+        "stall_speed_vs0_knots": 88.838,
+        "compliance_status": "FAIL",
+        "design_advisory_present": true,
+        "swept_parameter_name": "wingspan"
+      }
+    },
+    {
+      "test_id": "TC-05",
+      "description": "Mixed Imperial/Aviation units converted via Pint and routed to FAA Part 25",
+      "turns": [
+        "Compute induced drag and wing loading for a 25-passenger regional transport aircraft with wingspan 95 ft, wing area 850 sq ft, gross weight 42000 lbs, flying at 220 knots at an altitude of 10000 ft."
+      ],
+      "expected": {
+        "pipeline_status": "COMPLETED_VERIFIED",
+        "regulatory_category": "FAA_14_CFR_PART_25",
+        "si_wingspan_meters": 28.956,
+        "si_wing_area_m2": 78.9676,
+        "si_mass_kg": 19050.88,
+        "si_airspeed_m_s": 113.178,
+        "si_altitude_meters": 3048.0,
+        "aspect_ratio": 10.618,
+        "induced_drag_force_newtons": 2857.4,
+        "compliance_status": "PASS"
+      }
+    },
+    {
+      "test_id": "TC-06",
+      "description": "Out-of-scope orbital/materials query handled gracefully without hallucination",
+      "turns": [
+        "Calculate the orbital Hohmann transfer delta-V for a geostationary communication satellite and check NASA structural titanium creep limits at 1400 Kelvin."
+      ],
+      "expected": {
+        "pipeline_status": "OUT_OF_SCOPE_HALT",
+        "calculation_intent": "out_of_scope",
+        "solver_invoked": false
+      }
+    }
+  ]
+}
+

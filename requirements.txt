@@ -1,0 +1,31 @@
+# Core UI & Environment
+streamlit>=1.40.0
+python-dotenv>=1.0.1
+pydantic>=2.9.2
+
+# Offline Document Ingestion (Module A)
+markitdown>=0.0.1a3
+pymupdf4llm>=0.0.17
+pymupdf>=1.24.13
+
+# Hybrid Graph-RAG & Local CPU Embeddings (Module A & Module C)
+lightrag-hku>=1.0.6
+sentence-transformers>=3.2.1
+torch>=2.4.0
+networkx>=3.3
+nano-vectordb>=0.0.4.3
+
+# Cloud LLM Free-Tier Clients (Module B Extraction & Final Formatting Only)
+groq>=0.11.0
+google-genai>=0.3.0
+
+# Deterministic Physics, Symbolic Math & Unit Engine (Module D & Module E)
+aerosandbox>=4.2.4
+sympy>=1.13.3
+pint>=0.24.4
+numpy>=1.26.4
+scipy>=1.14.1
+
+# Automated Testing
+pytest>=8.3.3
+

@@ -1,0 +1,62 @@
+{
+  "14 CFR Part 23 (up to date as of 11-09-2026).pdf": {
+    "sha256": "efe066e4b69ab69b060dd2fcce55b62c0c0386eb9f9e88b3818e253dc8cce7dd",
+    "parsed_markdown": "14 CFR Part 23 (up to date as of 11-09-2026).md",
+    "indexed_at_utc": "2026-11-12T22:56:01.293124+00:00"
+  },
+  "19760003955.pdf": {
+    "sha256": "9a4e378aa1378ca4d3b99cb8c3f13a5cc5ae7c91504c2f612f42edb50c1bba9a",
+    "parsed_markdown": "19760003955.md",
+    "indexed_at_utc": "2026-11-12T22:56:05.617527+00:00"
+  },
+  "14 CFR Part 25 (up to date as of 11-10-2026).pdf": {
+    "sha256": "9ea919a99c1597bd9a9c4e739fd8e8b4985a2d49e9feee4f69c6783d9b8ff860",
+    "parsed_markdown": "14 CFR Part 25 (up to date as of 11-10-2026).md",
+    "indexed_at_utc": "2026-11-13T04:34:46.471320+00:00"
+  },
+  "19770013073.pdf": {
+    "sha256": "1c29f0e2aa7550a15dfcf1226e92badbea687ff1e7b5ff6129cc6a2f3c5e23f7",
+    "parsed_markdown": "19770013073.md",
+    "indexed_at_utc": "2026-11-13T04:34:55.123301+00:00"
+  },
+  "19900007394.pdf": {
+    "sha256": "b9479608a50bf25c0ffd8d8f3b9a11a575134f2ec70cd6bd69e8b7ee9261e7e0",
+    "parsed_markdown": "19900007394.md",
+    "indexed_at_utc": "2026-11-13T04:34:59.529378+00:00"
+  },
+  "19930090976.pdf": {
+    "sha256": "9f27283b704821192fc9dba4ed625f62002903b5127bc869cd04ac0a5cc54efd",
+    "parsed_markdown": "19930090976.md",
+    "indexed_at_utc": "2026-11-13T04:35:08.374111+00:00"
+  },
+  "19930091059.pdf": {
+    "sha256": "1971643025181d1216b0b0a359d2a5a3adf5d254d3e158e19ba880b368b86e53",
+    "parsed_markdown": "19930091059.md",
+    "indexed_at_utc": "2026-11-13T04:35:16.988340+00:00"
+  },
+  "20060008908.pdf": {
+    "sha256": "10946d266bf6126a0db1ca0bd8ea70cc8650b2bb9a5b5c23c13b136350c7eee5",
+    "parsed_markdown": "20060008908.md",
+    "indexed_at_utc": "2026-11-13T04:35:21.357793+00:00"
+  },
+  "ac_23-8c.pdf": {
+    "sha256": "2442f2c3f3da768721456e0b0745f27f4e12b0894eb649a6cce88792784e9c37",
+    "parsed_markdown": "ac_23-8c.md",
+    "indexed_at_utc": "2026-11-13T04:35:25.724396+00:00"
+  },
+  "AC_25-7D.pdf": {
+    "sha256": "47dcb52c8ea7b74e1a2a58c5f9ebae38b5798f863fdfb4c93ca6a7fc74b9defe",
+    "parsed_markdown": "AC_25-7D.md",
+    "indexed_at_utc": "2026-11-13T04:35:30.063769+00:00"
+  },
+  "faa-h-8083-25c.pdf": {
+    "sha256": "247929cace0ab56b376e683eba540cc4c8f39f199ab35414e8b604e24f395cb7",
+    "parsed_markdown": "faa-h-8083-25c.md",
+    "indexed_at_utc": "2026-11-13T04:35:34.448000+00:00"
+  },
+  "PHAK_Addendum_(MOSAIC).pdf": {
+    "sha256": "1670b8454eb22c644a723b3f61a94daff3857c0d94710d6b5961fe29c0999b63",
+    "parsed_markdown": "PHAK_Addendum_(MOSAIC).md",
+    "indexed_at_utc": "2026-11-13T04:35:38.788179+00:00"
+  }
+}

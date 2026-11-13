@@ -1,0 +1,440 @@
+{
+  "doc-e1dcb9ea96898a17a03eacf38ae28d07": {
+    "status": "processed",
+    "content_summary": "FAA 14 CFR Part 23 regulates normal and commuter category airplanes with passenger capacity up to 19 and maximum takeoff weight up to 19,000 lbs (8,618 kg). Section 23.2110 specifies that landing stall speed Vs0 must not exceed 61 knots. NASA SP-367 ...",
+    "content_length": 307,
+    "created_at": "2026-11-12T22:55:21.185082+00:00",
+    "updated_at": "2026-11-12T22:55:26.558614+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_042521_a9474786",
+    "content_hash": "e1dcb9ea96898a17a03eacf38ae28d07",
+    "metadata": {
+      "parse_start_time": 1794524121,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794524121,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794524121,
+      "process_end_time": 1794524126,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 1,
+    "chunks_list": [
+      "doc-e1dcb9ea96898a17a03eacf38ae28d07-chunk-000"
+    ]
+  },
+  "doc-c42dfd2d42a01e2a05b33b7cb2f7c924": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"14 CFR Part 23 (up to date as of 11-09-2026).pdf\"\nsha256_checksum: \"efe066e4b69ab69b060dd2fcce55b62c0c0386eb9f9e88b3818e253dc8cce7dd\"\ningestion_timestamp_utc: \"2026-11-12T22:42:43.750179+00:00\"\ndocument_authority: \"FAA\"\n---\n...",
+    "content_length": 3999,
+    "created_at": "2026-11-12T22:55:52.487156+00:00",
+    "updated_at": "2026-11-12T22:56:01.289277+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_042552_2cafe3b0",
+    "content_hash": "c42dfd2d42a01e2a05b33b7cb2f7c924",
+    "metadata": {
+      "parse_start_time": 1794524152,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794524152,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794524152,
+      "process_end_time": 1794524161,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 2,
+    "chunks_list": [
+      "doc-c42dfd2d42a01e2a05b33b7cb2f7c924-chunk-000",
+      "doc-c42dfd2d42a01e2a05b33b7cb2f7c924-chunk-001"
+    ]
+  },
+  "doc-3e00e4f5839f14b2aa5000b8eace907c": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"19760003955.pdf\"\nsha256_checksum: \"9a4e378aa1378ca4d3b99cb8c3f13a5cc5ae7c91504c2f612f42edb50c1bba9a\"\ningestion_timestamp_utc: \"2026-11-12T22:42:55.359406+00:00\"\ndocument_authority: \"NASA_NTRS\"\n---\n\n\n\n<!-- Start of picture te...",
+    "content_length": 3999,
+    "created_at": "2026-11-12T22:56:01.308700+00:00",
+    "updated_at": "2026-11-12T22:56:05.612901+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_042601_41c86199",
+    "content_hash": "3e00e4f5839f14b2aa5000b8eace907c",
+    "metadata": {
+      "parse_start_time": 1794524161,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794524161,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794524161,
+      "process_end_time": 1794524165,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 1,
+    "chunks_list": [
+      "doc-3e00e4f5839f14b2aa5000b8eace907c-chunk-000"
+    ]
+  },
+  "doc-8477f77a4d1baf8be4f3aeb4485da63c": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"19840019592.pdf\"\nsha256_checksum: \"7d48b939d6a4715e5c3dd5ee6df986bfbcdb60de7148afa366a2bee41b651845\"\ningestion_timestamp_utc: \"2026-11-12T22:45:03.395293+00:00\"\ndocument_authority: \"NASA_NTRS\"\n---\n\n\n\n\n\n\n\n\n\nRestriction/Classi...",
+    "content_length": 4000,
+    "created_at": "2026-11-12T22:56:05.633661+00:00",
+    "updated_at": "2026-11-12T22:56:09.995415+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_042605_8b7b7842",
+    "content_hash": "8477f77a4d1baf8be4f3aeb4485da63c",
+    "metadata": {
+      "parse_start_time": 1794524165,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794524165,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794524165,
+      "process_end_time": 1794524169,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 1,
+    "chunks_list": [
+      "doc-8477f77a4d1baf8be4f3aeb4485da63c-chunk-000"
+    ]
+  },
+  "doc-9674cf8b9d1183180a42663af6809ae7": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"19860017718.pdf\"\nsha256_checksum: \"a35f7401bc0b03d39a5bac9c2ca2d59986756351d4ace475b2af4bb628dbf8b3\"\ningestion_timestamp_utc: \"2026-11-12T22:45:57.290530+00:00\"\ndocument_authority: \"NASA_NTRS\"\n---\n\n**Aerodynamics** \n\n_NAM Co...",
+    "content_length": 4000,
+    "created_at": "2026-11-12T22:56:10.010632+00:00",
+    "updated_at": "2026-11-12T22:56:18.601361+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_042610_65c77695",
+    "content_hash": "9674cf8b9d1183180a42663af6809ae7",
+    "metadata": {
+      "parse_start_time": 1794524170,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794524170,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794524170,
+      "process_end_time": 1794524178,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 2,
+    "chunks_list": [
+      "doc-9674cf8b9d1183180a42663af6809ae7-chunk-000",
+      "doc-9674cf8b9d1183180a42663af6809ae7-chunk-001"
+    ]
+  },
+  "doc-d69c2cb3fd7a42fcf51652308de9436e": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"pilot_handbook.pdf\"\nsha256_checksum: \"9c07502b29fc1e2372bea1e9c8288250f88560a4d96afc097d7490f8d81a841c\"\ningestion_timestamp_utc: \"2026-11-12T22:50:03.912411+00:00\"\ndocument_authority: \"FAA\"\n---\n\n# Pilot’s Handbook of Aeronau...",
+    "content_length": 3999,
+    "created_at": "2026-11-12T22:56:18.621176+00:00",
+    "updated_at": "2026-11-12T22:56:22.951505+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_042618_81cb2083",
+    "content_hash": "d69c2cb3fd7a42fcf51652308de9436e",
+    "metadata": {
+      "parse_start_time": 1794524178,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794524178,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794524178,
+      "process_end_time": 1794524182,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 1,
+    "chunks_list": [
+      "doc-d69c2cb3fd7a42fcf51652308de9436e-chunk-000"
+    ]
+  },
+  "doc-ad9daaacfdd5ee4eb5d8ea196c154888": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"14 CFR Part 25 (up to date as of 11-10-2026).pdf\"\nsha256_checksum: \"9ea919a99c1597bd9a9c4e739fd8e8b4985a2d49e9feee4f69c6783d9b8ff860\"\ningestion_timestamp_utc: \"2026-11-13T04:25:35.755299+00:00\"\ndocument_authority: \"FAA\"\npage...",
+    "content_length": 3999,
+    "created_at": "2026-11-13T04:34:37.469142+00:00",
+    "updated_at": "2026-11-13T04:34:46.467959+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_100437_85119404",
+    "content_hash": "ad9daaacfdd5ee4eb5d8ea196c154888",
+    "metadata": {
+      "parse_start_time": 1794544477,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794544477,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794544477,
+      "process_end_time": 1794544486,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 2,
+    "chunks_list": [
+      "doc-ad9daaacfdd5ee4eb5d8ea196c154888-chunk-000",
+      "doc-ad9daaacfdd5ee4eb5d8ea196c154888-chunk-001"
+    ]
+  },
+  "doc-4abf7eab315422e0bbe33b8fbb798d8a": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"19770013073.pdf\"\nsha256_checksum: \"1c29f0e2aa7550a15dfcf1226e92badbea687ff1e7b5ff6129cc6a2f3c5e23f7\"\ningestion_timestamp_utc: \"2026-11-13T04:26:04.578780+00:00\"\ndocument_authority: \"NASA_NTRS\"\npages_extracted: \"80 of 80\"\n---...",
+    "content_length": 4000,
+    "created_at": "2026-11-13T04:34:46.482265+00:00",
+    "updated_at": "2026-11-13T04:34:55.119647+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_100446_40b21bc8",
+    "content_hash": "4abf7eab315422e0bbe33b8fbb798d8a",
+    "metadata": {
+      "parse_start_time": 1794544486,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794544486,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794544486,
+      "process_end_time": 1794544495,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 2,
+    "chunks_list": [
+      "doc-4abf7eab315422e0bbe33b8fbb798d8a-chunk-000",
+      "doc-4abf7eab315422e0bbe33b8fbb798d8a-chunk-001"
+    ]
+  },
+  "doc-728bcb3b7f61f20e9ca840c4d672dea1": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"19900007394.pdf\"\nsha256_checksum: \"b9479608a50bf25c0ffd8d8f3b9a11a575134f2ec70cd6bd69e8b7ee9261e7e0\"\ningestion_timestamp_utc: \"2026-11-13T04:26:47.028887+00:00\"\ndocument_authority: \"NASA_NTRS\"\npages_extracted: \"76 of 76\"\n---...",
+    "content_length": 4000,
+    "created_at": "2026-11-13T04:34:55.143173+00:00",
+    "updated_at": "2026-11-13T04:34:59.526111+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_100455_de51b4e9",
+    "content_hash": "728bcb3b7f61f20e9ca840c4d672dea1",
+    "metadata": {
+      "parse_start_time": 1794544495,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794544495,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794544495,
+      "process_end_time": 1794544499,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 1,
+    "chunks_list": [
+      "doc-728bcb3b7f61f20e9ca840c4d672dea1-chunk-000"
+    ]
+  },
+  "doc-0c6d6f1ce1e34a6b4f520996342c5850": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"19930090976.pdf\"\nsha256_checksum: \"9f27283b704821192fc9dba4ed625f62002903b5127bc869cd04ac0a5cc54efd\"\ningestion_timestamp_utc: \"2026-11-13T04:27:42.344089+00:00\"\ndocument_authority: \"NASA_NTRS\"\npages_extracted: \"100 of 261\"\n-...",
+    "content_length": 4000,
+    "created_at": "2026-11-13T04:34:59.540261+00:00",
+    "updated_at": "2026-11-13T04:35:08.370066+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_100459_d4a1cfab",
+    "content_hash": "0c6d6f1ce1e34a6b4f520996342c5850",
+    "metadata": {
+      "parse_start_time": 1794544499,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794544499,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794544499,
+      "process_end_time": 1794544508,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 2,
+    "chunks_list": [
+      "doc-0c6d6f1ce1e34a6b4f520996342c5850-chunk-000",
+      "doc-0c6d6f1ce1e34a6b4f520996342c5850-chunk-001"
+    ]
+  },
+  "doc-01661db85c018941238e8ba15b4bb51a": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"19930091059.pdf\"\nsha256_checksum: \"1971643025181d1216b0b0a359d2a5a3adf5d254d3e158e19ba880b368b86e53\"\ningestion_timestamp_utc: \"2026-11-13T04:29:11.816926+00:00\"\ndocument_authority: \"NASA_NTRS\"\npages_extracted: \"70 of 70\"\n---...",
+    "content_length": 4000,
+    "created_at": "2026-11-13T04:35:08.391161+00:00",
+    "updated_at": "2026-11-13T04:35:16.985217+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_100508_469d7e10",
+    "content_hash": "01661db85c018941238e8ba15b4bb51a",
+    "metadata": {
+      "parse_start_time": 1794544508,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794544508,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794544508,
+      "process_end_time": 1794544516,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 2,
+    "chunks_list": [
+      "doc-01661db85c018941238e8ba15b4bb51a-chunk-000",
+      "doc-01661db85c018941238e8ba15b4bb51a-chunk-001"
+    ]
+  },
+  "doc-04c63c485fc9fa05e16dbbaa1746a6cb": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"20060008908.pdf\"\nsha256_checksum: \"10946d266bf6126a0db1ca0bd8ea70cc8650b2bb9a5b5c23c13b136350c7eee5\"\ningestion_timestamp_utc: \"2026-11-13T04:30:51.604313+00:00\"\ndocument_authority: \"NASA_NTRS\"\npages_extracted: \"74 of 74\"\n---...",
+    "content_length": 4000,
+    "created_at": "2026-11-13T04:35:17.003405+00:00",
+    "updated_at": "2026-11-13T04:35:21.354723+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_100517_abb48b51",
+    "content_hash": "04c63c485fc9fa05e16dbbaa1746a6cb",
+    "metadata": {
+      "parse_start_time": 1794544517,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794544517,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794544517,
+      "process_end_time": 1794544521,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 1,
+    "chunks_list": [
+      "doc-04c63c485fc9fa05e16dbbaa1746a6cb-chunk-000"
+    ]
+  },
+  "doc-e69ccba062cc6da964dda7a9a4f07996": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"ac_23-8c.pdf\"\nsha256_checksum: \"2442f2c3f3da768721456e0b0745f27f4e12b0894eb649a6cce88792784e9c37\"\ningestion_timestamp_utc: \"2026-11-13T04:31:09.699742+00:00\"\ndocument_authority: \"FAA\"\npages_extracted: \"100 of 265\"\n---\n\n\n\n<!-...",
+    "content_length": 4000,
+    "created_at": "2026-11-13T04:35:21.373252+00:00",
+    "updated_at": "2026-11-13T04:35:25.720755+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_100521_fba23d2b",
+    "content_hash": "e69ccba062cc6da964dda7a9a4f07996",
+    "metadata": {
+      "parse_start_time": 1794544521,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794544521,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794544521,
+      "process_end_time": 1794544525,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 1,
+    "chunks_list": [
+      "doc-e69ccba062cc6da964dda7a9a4f07996-chunk-000"
+    ]
+  },
+  "doc-30ec005c3666bc6118857c372e7fd134": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"AC_25-7D.pdf\"\nsha256_checksum: \"47dcb52c8ea7b74e1a2a58c5f9ebae38b5798f863fdfb4c93ca6a7fc74b9defe\"\ningestion_timestamp_utc: \"2026-11-13T04:31:38.667697+00:00\"\ndocument_authority: \"FAA\"\npages_extracted: \"100 of 481\"\n---\n\nU.S. ...",
+    "content_length": 4000,
+    "created_at": "2026-11-13T04:35:25.736779+00:00",
+    "updated_at": "2026-11-13T04:35:30.060124+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_100525_01cd24db",
+    "content_hash": "30ec005c3666bc6118857c372e7fd134",
+    "metadata": {
+      "parse_start_time": 1794544525,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794544525,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794544525,
+      "process_end_time": 1794544530,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 1,
+    "chunks_list": [
+      "doc-30ec005c3666bc6118857c372e7fd134-chunk-000"
+    ]
+  },
+  "doc-cc1a55906a23487b81153d4d148631c8": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"faa-h-8083-25c.pdf\"\nsha256_checksum: \"247929cace0ab56b376e683eba540cc4c8f39f199ab35414e8b604e24f395cb7\"\ningestion_timestamp_utc: \"2026-11-13T04:32:21.507660+00:00\"\ndocument_authority: \"FAA\"\npages_extracted: \"100 of 522\"\n---\n...",
+    "content_length": 4000,
+    "created_at": "2026-11-13T04:35:30.079333+00:00",
+    "updated_at": "2026-11-13T04:35:34.444433+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_100530_85f76fa2",
+    "content_hash": "cc1a55906a23487b81153d4d148631c8",
+    "metadata": {
+      "parse_start_time": 1794544530,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794544530,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794544530,
+      "process_end_time": 1794544534,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 1,
+    "chunks_list": [
+      "doc-cc1a55906a23487b81153d4d148631c8-chunk-000"
+    ]
+  },
+  "doc-a6cc0f056e425e4f19ed34b685d08402": {
+    "status": "processed",
+    "content_summary": "---\nsource_pdf_filename: \"PHAK_Addendum_(MOSAIC).pdf\"\nsha256_checksum: \"1670b8454eb22c644a723b3f61a94daff3857c0d94710d6b5961fe29c0999b63\"\ningestion_timestamp_utc: \"2026-11-13T04:33:49.481355+00:00\"\ndocument_authority: \"FAA\"\npages_extracted: \"5 of 5\"\n...",
+    "content_length": 3999,
+    "created_at": "2026-11-13T04:35:34.458939+00:00",
+    "updated_at": "2026-11-13T04:35:38.784889+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20261113_100534_c9e92f55",
+    "content_hash": "a6cc0f056e425e4f19ed34b685d08402",
+    "metadata": {
+      "parse_start_time": 1794544534,
+      "parse_stage_skipped": true,
+      "parse_format": "raw",
+      "parse_engine": "legacy",
+      "analyzing_start_time": 1794544534,
+      "analyzing_stage_skipped": true,
+      "kg_write_state": "graph_mutation_started",
+      "process_start_time": 1794544534,
+      "process_end_time": 1794544538,
+      "chunk_method": "legacy_chunking_func",
+      "chunk_opts": "size=1200, split_only=False, overlap=100"
+    },
+    "chunks_count": 1,
+    "chunks_list": [
+      "doc-a6cc0f056e425e4f19ed34b685d08402-chunk-000"
+    ]
+  }
+}

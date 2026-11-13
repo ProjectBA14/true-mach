@@ -1,0 +1,202 @@
+{
+  "version": "1.0.0",
+  "standard_defaults": {
+    "sea_level_altitude_meters": 0.0,
+    "sea_level_density_kg_m3": 1.225,
+    "sea_level_temperature_kelvin": 288.15,
+    "sea_level_pressure_pascals": 101325.0,
+    "gravitational_acceleration_m_s2": 9.80665,
+    "default_oswald_efficiency_factor": 0.80,
+    "default_zero_lift_drag_coefficient_cd0": 0.025,
+    "default_landing_clmax": 1.60,
+    "default_clean_clmax": 1.35,
+    "gross_mass_per_passenger_heuristic_kg": 450.0
+  },
+  "intent_mandatory_parameters": {
+    "induced_drag": [
+      "wingspan",
+      "wing_area",
+      "aircraft_mass",
+      "true_airspeed",
+      "altitude"
+    ],
+    "stall_speed": [
+      "wing_area",
+      "aircraft_mass",
+      "altitude",
+      "maximum_lift_coefficient_clmax"
+    ],
+    "wing_loading": [
+      "wing_area",
+      "aircraft_mass"
+    ],
+    "climb_gradient": [
+      "wingspan",
+      "wing_area",
+      "aircraft_mass",
+      "true_airspeed",
+      "altitude",
+      "available_thrust"
+    ],
+    "static_margin": [
+      "center_of_gravity_position",
+      "neutral_point_position",
+      "mean_aerodynamic_chord"
+    ],
+    "breguet_range": [
+      "wingspan",
+      "wing_area",
+      "aircraft_mass",
+      "fuel_mass",
+      "true_airspeed",
+      "altitude",
+      "propeller_efficiency",
+      "specific_fuel_consumption"
+    ],
+    "compressibility_correction": [
+      "true_airspeed",
+      "altitude",
+      "incompressible_pressure_coefficient_cp0"
+    ],
+    "full_aerodynamic_audit": [
+      "wingspan",
+      "wing_area",
+      "aircraft_mass",
+      "true_airspeed",
+      "altitude",
+      "maximum_lift_coefficient_clmax"
+    ],
+    "transonic_audit": [
+      "true_airspeed",
+      "altitude"
+    ],
+    "wing_sizing": [
+      "wing_area",
+      "aircraft_mass",
+      "true_airspeed",
+      "altitude"
+    ],
+    "regulatory_qa": []
+  },
+  "regulatory_classification_rules": {
+    "FAA_14_CFR_PART_23": {
+      "title": "FAA 14 CFR Part 23 — Normal/Commuter Category Airplanes",
+      "max_passengers": 19,
+      "max_takeoff_mass_kg": 8618.255,
+      "max_takeoff_weight_lbs": 19000.0,
+      "citation_section": "14 CFR § 23.2005 & § 23.2110 (Historic § 23.49)",
+      "source_file": "14 CFR Part 23 (up to date as of 11-09-2026).pdf"
+    },
+    "FAA_14_CFR_PART_25": {
+      "title": "FAA 14 CFR Part 25 — Transport Category Airplanes",
+      "min_passengers_exclusive": 19,
+      "min_takeoff_mass_kg_exclusive": 8618.255,
+      "citation_section": "14 CFR § 25.1 & § 25.103 / § 25.253 (High-Speed Characteristics)",
+      "source_file": "14 CFR Part 25 (up to date as of 11-10-2026).pdf"
+    }
+  },
+  "compliance_thresholds": {
+    "FAA_14_CFR_PART_23": {
+      "stall_speed_vs0_knots": {
+        "pass_max": 58.0,
+        "warning_max": 61.0,
+        "fail_above": 61.0,
+        "unit": "knots",
+        "regulation_reference": "14 CFR § 23.2110 / § 23.49 (Max Landing Stall Speed Vs0 <= 61 knots)",
+        "source_document": "14 CFR Part 23 (up to date as of 11-09-2026).pdf"
+      },
+      "induced_drag_coefficient_cdi": {
+        "pass_max": 0.040,
+        "warning_max": 0.065,
+        "fail_above": 0.065,
+        "unit": "dimensionless",
+        "regulation_reference": "NASA SP-367 (NTRS 19760003955) Ch. 4 Subsonic Induced Drag Efficiency",
+        "source_document": "19760003955.pdf"
+      },
+      "aspect_ratio_ar": {
+        "pass_min": 6.5,
+        "warning_min": 5.0,
+        "fail_below": 5.0,
+        "unit": "dimensionless",
+        "regulation_reference": "NASA SP-367 (NTRS 19760003955) & FAA-H-8083-25C Ch. 5 Planform Design",
+        "source_document": "19760003955.pdf"
+      },
+      "static_margin_fraction": {
+        "pass_min": 0.05,
+        "pass_max": 0.25,
+        "warning_min": 0.02,
+        "warning_max": 0.35,
+        "unit": "fraction_mac",
+        "regulation_reference": "14 CFR § 23.2135 Static Longitudinal Stability & NASA SP-367 Ch. 7",
+        "source_document": "14 CFR Part 23 (up to date as of 11-09-2026).pdf"
+      },
+      "climb_gradient_percent": {
+        "pass_min": 8.33,
+        "warning_min": 6.0,
+        "fail_below": 6.0,
+        "unit": "percent",
+        "regulation_reference": "14 CFR § 23.2120 Climb Requirements (1:12 gradient = 8.33%)",
+        "source_document": "14 CFR Part 23 (up to date as of 11-09-2026).pdf"
+      },
+      "wave_drag_coefficient_cdw": {
+        "pass_max": 0.0,
+        "warning_max": 0.0020,
+        "fail_above": 0.0020,
+        "unit": "dimensionless",
+        "regulation_reference": "NASA Transonic Wave Drag Heuristic (NTRS 20060008908)",
+        "source_document": "20060008908.pdf"
+      }
+    },
+    "FAA_14_CFR_PART_25": {
+      "stall_speed_vs0_knots": {
+        "pass_max": 135.0,
+        "warning_max": 145.0,
+        "fail_above": 145.0,
+        "unit": "knots",
+        "regulation_reference": "14 CFR § 25.103 Stall Speed & Approach Category C/D Envelope",
+        "source_document": "14 CFR Part 25 (up to date as of 11-10-2026).pdf"
+      },
+      "induced_drag_coefficient_cdi": {
+        "pass_max": 0.035,
+        "warning_max": 0.055,
+        "fail_above": 0.055,
+        "unit": "dimensionless",
+        "regulation_reference": "NASA Supercritical High-AR Wing (NTRS 19770013073 & 20060008908)",
+        "source_document": "20060008908.pdf"
+      },
+      "aspect_ratio_ar": {
+        "pass_min": 7.0,
+        "warning_min": 5.5,
+        "fail_below": 5.5,
+        "unit": "dimensionless",
+        "regulation_reference": "NASA Supercritical Wing Technology (NTRS 19770013073)",
+        "source_document": "19770013073.pdf"
+      },
+      "wave_drag_coefficient_cdw": {
+        "pass_max": 0.0,
+        "warning_max": 0.0020,
+        "fail_above": 0.0020,
+        "unit": "dimensionless",
+        "regulation_reference": "14 CFR § 25.253 & NASA NTRS 20060008908 Transonic Drag Divergence",
+        "source_document": "20060008908.pdf"
+      },
+      "mach_number": {
+        "pass_max": 0.82,
+        "warning_max": 0.85,
+        "fail_above": 0.85,
+        "unit": "dimensionless",
+        "regulation_reference": "14 CFR § 25.253 High-speed characteristics & Mach buffet limit",
+        "source_document": "14 CFR Part 25 (up to date as of 11-10-2026).pdf"
+      }
+    }
+  },
+  "parameter_sweep_config": {
+    "wingspan_sweep_max_ratio": 1.30,
+    "wingspan_sweep_extended_max_ratio": 1.60,
+    "wingspan_step_meters": 0.20,
+    "wing_area_step_m2": 0.50,
+    "clmax_sweep_max": 2.20,
+    "clmax_step": 0.05
+  }
+}
+
